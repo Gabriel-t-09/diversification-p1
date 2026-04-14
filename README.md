@@ -40,6 +40,10 @@ The median is computed over the 6 episodes where collapse was detected (ep_02 ex
 
 A sensitivity analysis across threshold percentiles (p80 through p95) confirms the result is not an artifact of the threshold choice — the median never exceeds 10 days across all tested thresholds (Section 5.6). An absolute correlation threshold analysis (Section 5.6.1) shows that in 4 of 7 episodes, risk asset correlation was already above 0.80 at stress onset.
 
+The chart below shows each episode individually. The orange vertical line marks stress onset; the red vertical line marks correlation collapse. Episodes where the red line appears at or before the orange line are the 0-day cases — the collapse had already occurred when the stress signal fired. The dashed red line is the rolling 90th percentile threshold; the solid blue line is the rolling average pairwise correlation among risk assets (SPY, EFA, EEM, DBC).
+
+![Rolling risk asset correlation by episode — Block B](images/fig1_correlation_by_episode_blockB.png)
+
 ---
 
 ## Episode Detection — Algorithmic, No Manual Selection
@@ -93,11 +97,21 @@ Episodes with identical onset dates appear in both blocks, enabling direct cross
 - 3 of the 6 detected episodes had collapse at onset (0 days) — correlation was already elevated when the stress signal fired.
 - Result stable across threshold percentiles p80–p95 (Section 5.6).
 
+The chart below shows days to collapse per episode. Episodes labeled 0d had correlation already above threshold at onset. ep_02 is excluded (NOT DETECTED). Episode labels on the x-axis correspond directly to onset dates in the table above: ep_01 = 2008-01-22 (GFC), ep_03 = 2011-08-08, ep_04 = 2011-11-17, ep_05 = 2018-12-21, ep_06 = 2020-03-09 (COVID), ep_07 = 2022-05-09.
+
+![Speed of collapse — Block B](images/fig3_speed_summary.png)
+
 **H3 — Diversification ratio deteriorates in stress**
 - Block A: not significant (p=0.187) with algorithmic episodes.
 - Block B: significant (p < 0.0001). Normal DR = 1.71, stress DR = 1.64.
 - Key finding: in 4 of the 6 episodes with detected correlation collapse in Block B, the DR was **at or above the normal baseline** at the exact moment risk asset correlation peaked. Note: the denominators in H2 and H3 are both 6 (episodes with detected collapse), but they measure different things — H2 counts episodes where collapse was at onset (0 days), H3 counts episodes where DR was above normal at that collapse moment. These are overlapping but not identical subsets of the same 6 episodes.
 - The total portfolio appeared diversified while the risk side was already highly correlated — because defensive assets (TLT, IEF, GLD) were moving against risk assets, inflating the ratio.
+
+Red shading marks algorithmic stress episodes. The dashed line is the normal-regime DR mean.
+
+![Diversification ratio over time — Block A (1980–2024)](images/fig2_dr_over_time_block_a.png)
+
+![Diversification ratio over time — Block B (2006–2024)](images/fig2_dr_over_time_block_b.png)
 
 **H4 — Breadth failure: proportion of assets with negative returns is higher in stress**
 - Block B: p = 0.058 — not significant with algorithmic episodes.
@@ -178,10 +192,10 @@ The standard portfolio-level DR metric was signaling health while the risk side 
 ## Reproducing the Analysis
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/diversification-p1
+git clone https://github.com/Gabriel-t-09/diversification-p1
 cd diversification-p1
 pip install -r requirements.txt
-jupyter notebook p1_diversification.ipynb
+jupyter notebook notebook/p1_diversification.ipynb
 ```
 
 On first run, the notebook downloads data and saves to `data/ret_a.csv` and `data/ret_b.csv`. Subsequent runs load from cache.
