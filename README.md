@@ -22,7 +22,7 @@ Two limitations of this choice are worth stating before the results, because the
 
 ## The Finding
 
-In stress episodes defined by a formal drawdown criterion, the average pairwise correlation among risk assets crosses its historical 90th percentile threshold within a **median of 8 trading days across 6 detected episodes**. In several episodes, the collapse had already occurred before the stress signal was detected.
+In stress episodes defined by a formal drawdown criterion, the average pairwise correlation among risk assets crosses its historical 90th percentile threshold rapidly. In 3 of 6 detected episodes, the collapse had already occurred before the stress signal was detected. In the remaining 3 episodes, collapse occurred within 16, 18, and 35 trading days of stress onset.
 
 | Episode | Onset | Days to Collapse |
 |---|---|---|
@@ -93,7 +93,7 @@ Episodes with identical onset dates appear in both blocks, enabling direct cross
 - Tested on Block B only — Block A has only 1 risk asset (SPX), making pairwise correlation among risk assets uncomputable.
 
 **H2 — When stress is observable, correlation collapse has already occurred or occurs within days**
-- Block B: median 8 days across 6 detected episodes. Maximum: 35 days.
+- Block B: 3 of 6 detected episodes collapsed before the stress signal fired (0 days). The remaining 3 episodes: 16, 18, and 35 trading days. No episode gave sufficient time for institutional repositioning.
 - 3 of the 6 detected episodes had collapse at onset (0 days) — correlation was already elevated when the stress signal fired.
 - Result stable across threshold percentiles p80–p95 (Section 5.6).
 
@@ -119,7 +119,7 @@ Red shading marks algorithmic stress episodes. The dashed line is the normal-reg
 - Note: H4 was significant with manually selected episodes but is not significant with algorithmically defined episodes. This raises a legitimate question about whether the earlier result reflected the specific characteristics of famous crises rather than a general pattern. The null result with algorithmic episodes is the more credible finding.
 
 **H5 — Universe expansion does not prevent or meaningfully delay collapse**
-- H5 is primarily supported by Block B internal evidence: 7 assets collapsed in a median of 8 days across detected episodes. No portfolio can be repositioned in 8 trading days regardless of how many assets it contains.
+- H5 is primarily supported by Block B internal evidence: 7 assets collapsed across all detected episodes — in 3 cases before the stress signal fired, and in the remaining 3 within 16, 18, and 35 trading days. No portfolio can be repositioned within that window regardless of how many assets it contains.
 - The cross-block comparison between Block A and Block B is limited by metric heterogeneity. Block A measures full-universe correlation (SPX + Treasury + DXY); Block B measures risk-asset-only correlation (SPY, EFA, EEM, DBC). These are not directly comparable. The only episode where both blocks produce a valid, comparable result is 2011 (Block A: 1 day, Block B: 0 days) — one episode is insufficient to sustain a cross-block inference.
 - GFC comparison (Block A: 8 days, Block B: 35 days) is reported for transparency but reflects metric heterogeneity, not a genuine advantage of the smaller universe.
 - Conclusion: the evidence that universe expansion does not help comes from Block B's own internal consistency across 7 episodes — not from formal cross-block comparison.
